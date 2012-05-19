@@ -21,7 +21,7 @@ $mech->submit_form(
 );
 
 $mech->submit_form( form_name => 'redir' );
-
+$mech->submit_form( form_name => 'aspnetForm');
 
 # some reason this is the loading text rather than the correct text :<
-print $mech->text();
+print $mech->content();
