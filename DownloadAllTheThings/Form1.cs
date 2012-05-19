@@ -84,7 +84,7 @@ namespace DownloadAllTheThings
 
         public void getDataFromComcast()
         {
-            //<span id="ctl00_ctl00_ContentArea_PrimaryColumnContent_UsedWrapper" style="color:red;">251GB</span>
+            // call the perl script
         }
 
     }
