@@ -1,0 +1,10 @@
+c:\users\lindsey\documents\visual studio 2010\Projects\DownloadAllTheThings\DownloadAllTheThings\bin\Debug\DownloadAllTheThings.exe
+c:\users\lindsey\documents\visual studio 2010\Projects\DownloadAllTheThings\DownloadAllTheThings\bin\Debug\DownloadAllTheThings.pdb
+c:\users\lindsey\documents\visual studio 2010\Projects\DownloadAllTheThings\DownloadAllTheThings\obj\x86\Debug\ResolveAssemblyReference.cache
+c:\users\lindsey\documents\visual studio 2010\Projects\DownloadAllTheThings\DownloadAllTheThings\obj\x86\Debug\DownloadAllTheThings.Form1.resources
+c:\users\lindsey\documents\visual studio 2010\Projects\DownloadAllTheThings\DownloadAllTheThings\obj\x86\Debug\DownloadAllTheThings.Properties.Resources.resources
+c:\users\lindsey\documents\visual studio 2010\Projects\DownloadAllTheThings\DownloadAllTheThings\obj\x86\Debug\GenerateResource.read.1.tlog
+c:\users\lindsey\documents\visual studio 2010\Projects\DownloadAllTheThings\DownloadAllTheThings\obj\x86\Debug\GenerateResource.write.1.tlog
+c:\users\lindsey\documents\visual studio 2010\Projects\DownloadAllTheThings\DownloadAllTheThings\obj\x86\Debug\DownloadAllTheThings.exe
+c:\users\lindsey\documents\visual studio 2010\Projects\DownloadAllTheThings\DownloadAllTheThings\obj\x86\Debug\DownloadAllTheThings.pdb
+c:\users\lindsey\documents\visual studio 2010\Projects\DownloadAllTheThings\DownloadAllTheThings\bin\Debug\DownloadAllTheThings.exe.config
