@@ -6,25 +6,11 @@ var system = require('system'),
 	password = system.args[2];
 
 page.onConsoleMessage = function (msg) {
-	// for debugging, remove the console> later
-    console.log('console>' + msg);
+    console.log(msg);
 };
-
-// for debugging, just in case
-page.onAlert = function (msg) {
-	console.log('alert>' + msg);
-};
-
 
 page.open(url, function (status) {
 	if (status === 'success') {
-		console.log('=======================================');
-		console.log('Step ' + stepIndex);
-		console.log('=======================================');
-
-		// let's get some jquery up in this bitch
-		page.injectJs('jquery-1.7.2.min.js');
-
 		if(!phantom.state){
 			initialize();
 		} else {
@@ -32,6 +18,7 @@ page.open(url, function (status) {
 		}
 
 		// save a screenshot - because otherwise I won't know wtf
+		// TODO: remove
 		page.render('step' + stepIndex++ + ".png");
 	}
 });
@@ -39,8 +26,8 @@ page.open(url, function (status) {
 // Step 1
 function initialize() {
 	page.evaluate(function() {
-		document.getElementById('user').value = 'hardcodedusername';
-		document.getElementById('passwd').value = 'hardcodedpassword';
+		document.getElementById('user').value = 'lbieda5956';
+		document.getElementById('passwd').value = 'incu13bus';
 		document.forms['signin'].submit();
 		console.log('submitting form...');
 	});
@@ -51,6 +38,7 @@ function initialize() {
 // Step 2
 function waitForLoad() {
 	page.evaluate(function() {
+		// TODO: remove
 		console.log(document.getElementById('loadingMessage').innerHTML);
 	});
 
@@ -60,6 +48,7 @@ function waitForLoad() {
 //step 3
 function waitForLoad2() {
 	page.evaluate(function() {
+		// TODO: remove
 		console.log(document.getElementById('loadingMessage').innerHTML);
 	});
 
@@ -69,8 +58,7 @@ function waitForLoad2() {
 // Step 4
 function scrapeData() {
 	page.evaluate(function() {
-		// to do: grab the data
-		//console.log(document.body.innerHTML);
+		// grab the data from the website
 		console.log(document.getElementById('ctl00_ctl00_ContentArea_PrimaryColumnContent_UsedWrapper').innerHTML);
 	});
 
