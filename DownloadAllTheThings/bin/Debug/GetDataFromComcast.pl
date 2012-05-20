@@ -2,7 +2,7 @@ use strict;
 use WWW::Scripter;
 
 my $script = new WWW::Scripter;
-$script->use_plugin('JavaScript');
+$script->use_plugin('Ajax');
 
 my $username = $ARGV[0];
 my $password = $ARGV[1]; 
