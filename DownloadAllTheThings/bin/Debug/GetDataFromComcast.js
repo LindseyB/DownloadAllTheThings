@@ -26,8 +26,8 @@ page.open(url, function (status) {
 // Step 1
 function initialize() {
 	page.evaluate(function() {
-		document.getElementById('user').value = 'lbieda5956';
-		document.getElementById('passwd').value = 'incu13bus';
+		document.getElementById('user').value = 'hardcodedusername';
+		document.getElementById('passwd').value = 'hardcodedpassword';
 		document.forms['signin'].submit();
 		console.log('submitting form...');
 	});
