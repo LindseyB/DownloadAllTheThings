@@ -5,6 +5,7 @@ var system = require('system'),
 	username = system.args[1],
 	password = system.args[2];
 
+// require to log information from the evalute functions to the console
 page.onConsoleMessage = function (msg) {
     console.log(msg);
 };
@@ -16,10 +17,6 @@ page.open(url, function (status) {
 		} else {
 			phantom.state();
 		}
-
-		// save a screenshot - because otherwise I won't know wtf
-		// TODO: remove
-		page.render('step' + stepIndex++ + ".png");
 	}
 });
 
@@ -39,8 +36,8 @@ function initialize() {
 // Step 2
 function waitForLoad() {
 	page.evaluate(function() {
-		// TODO: remove
-		console.log(document.getElementById('loadingMessage').innerHTML);
+		// silently grab the loading text
+		document.getElementById('loadingMessage').innerHTML;
 	});
 
 	phantom.state = waitForLoad2;
@@ -49,8 +46,8 @@ function waitForLoad() {
 //step 3
 function waitForLoad2() {
 	page.evaluate(function() {
-		// TODO: remove
-		console.log(document.getElementById('loadingMessage').innerHTML);
+		// silently grab the loading text
+		document.getElementById('loadingMessage').innerHTML;
 	});
 
 	phantom.state = scrapeData;	
