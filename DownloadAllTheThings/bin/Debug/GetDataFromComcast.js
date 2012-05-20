@@ -5,6 +5,8 @@ var system = require('system'),
 	username = system.args[1],
 	password = system.args[2];
 
+var args = 1;
+
 page.onConsoleMessage = function (msg) {
     console.log(msg);
 };
@@ -25,15 +27,16 @@ page.open(url, function (status) {
 
 // Step 1
 function initialize() {
-	page.evaluate(function() {
-		document.getElementById('user').value = 'hardcodedusername';
-		document.getElementById('passwd').value = 'hardcodedpassword';
+	evaluate(page, function(username,password) {
+		// enter username and password and submit the form
+		document.getElementById('user').value = username;
+		document.getElementById('passwd').value = password;
 		document.forms['signin'].submit();
-		console.log('submitting form...');
-	});
+	}, username, password);
 
 	phantom.state = waitForLoad;
 }
+
 
 // Step 2
 function waitForLoad() {
@@ -65,3 +68,9 @@ function scrapeData() {
 	phantom.exit();
 }
 
+// A hack to pass arguments into evaluation
+function evaluate(page, func) {
+    var args = [].slice.call(arguments, 2);
+    var fn = "function() { return (" + func.toString() + ").apply(this, " + JSON.stringify(args) + ");}";
+    return page.evaluate(fn);
+}
