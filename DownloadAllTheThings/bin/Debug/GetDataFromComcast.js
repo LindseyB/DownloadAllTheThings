@@ -17,6 +17,10 @@ page.open(url, function (status) {
 		} else {
 			phantom.state();
 		}
+	} else {
+		// page load error - the value is unknown and exit
+		console.log('Unknown');
+		phantom.exit();
 	}
 });
 
@@ -37,7 +41,9 @@ function initialize() {
 function waitForLoad() {
 	page.evaluate(function() {
 		// silently grab the loading text
-		document.getElementById('loadingMessage').innerHTML;
+		if(document.getElementById('loadingMessage')){
+			document.getElementById('loadingMessage').innerHTML;
+		} // otherwise, attempt to go to the next step
 	});
 
 	phantom.state = waitForLoad2;
@@ -47,7 +53,9 @@ function waitForLoad() {
 function waitForLoad2() {
 	page.evaluate(function() {
 		// silently grab the loading text
-		document.getElementById('loadingMessage').innerHTML;
+		if(document.getElementById('loadingMessage')){
+			document.getElementById('loadingMessage').innerHTML;
+		} // otherwise, attempt to go to the next step
 	});
 
 	phantom.state = scrapeData;	
@@ -57,7 +65,12 @@ function waitForLoad2() {
 function scrapeData() {
 	page.evaluate(function() {
 		// grab the data from the website
-		console.log(document.getElementById('ctl00_ctl00_ContentArea_PrimaryColumnContent_UsedWrapper').innerHTML);
+		if(document.getElementById('ctl00_ctl00_ContentArea_PrimaryColumnContent_UsedWrapper')) {
+			console.log(document.getElementById('ctl00_ctl00_ContentArea_PrimaryColumnContent_UsedWrapper').innerHTML);
+		} else {
+			// Let's not error out but instead just say we don't know the amount
+			console.log('Unknown');
+		}
 	});
 
 	phantom.exit();
