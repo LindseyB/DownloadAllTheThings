@@ -5,8 +5,6 @@ var system = require('system'),
 	username = system.args[1],
 	password = system.args[2];
 
-var args = 1;
-
 page.onConsoleMessage = function (msg) {
     console.log(msg);
 };
