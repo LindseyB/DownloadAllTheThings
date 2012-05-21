@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Net;
 using System.IO;
+using System.Diagnostics;
 
 namespace DownloadAllTheThings
 {
@@ -22,8 +23,6 @@ namespace DownloadAllTheThings
             passwordBox.Text = Properties.Settings.Default.password;
 
             createContextMenu();
-
-            getDataFromComcast();
         }
 
         // create the context menu for the notify icon
@@ -70,10 +69,11 @@ namespace DownloadAllTheThings
             if (FormWindowState.Minimized == this.WindowState)
             {
                 downloadIcon.Visible = true;
-                //downloadIcon.Text = "test tooltip text";
-                //downloadIcon.BalloonTipText = "teeeeeeeeeeest";
-                //downloadIcon.ShowBalloonTip(5000);
                 this.Hide();
+                
+                // get the number once this is hidden
+                getDataFromComcast();
+                downloadIcon.ShowBalloonTip(5000);
             }
         }
 
@@ -84,8 +84,29 @@ namespace DownloadAllTheThings
 
         public void getDataFromComcast()
         {
-            // call the perl script
+            // call the phantomjs script
+            Process proc = new Process();
+            ProcessStartInfo procStartInfo = new ProcessStartInfo("phantomjs.exe");
+            procStartInfo.Arguments = "GetDataFromComcast.js " + Properties.Settings.Default.username + " " + Properties.Settings.Default.password;
+            procStartInfo.UseShellExecute = false;
+            procStartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            procStartInfo.CreateNoWindow = true;
+            procStartInfo.RedirectStandardOutput = true;
+            proc.StartInfo = procStartInfo;
+            proc.Start();
+
+
+            // grab the output from the script
+            StreamReader sr = proc.StandardOutput;
+            string usage = sr.ReadLine();
+            downloadIcon.BalloonTipText = usage;
+            proc.Close();
         }
 
+        // When the tooltip is clicked show the usage
+        private void downloadIcon_Click(object sender, MouseEventArgs e)
+        {
+            downloadIcon.ShowBalloonTip(5000);
+        }
     }
 }
