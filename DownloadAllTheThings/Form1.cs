@@ -9,17 +9,20 @@ using System.Windows.Forms;
 using System.Net;
 using System.IO;
 using System.Diagnostics;
+using System.Threading;
 
 namespace DownloadAllTheThings
 {
     public partial class Form1 : Form
     {
         public DateTime time;
+        public bool firstCheck;
 
         public Form1()
         {
             InitializeComponent();
             passwordBox.PasswordChar = '*';
+            firstCheck = true;
 
             usernameBox.Text = Properties.Settings.Default.username;
             passwordBox.Text = Properties.Settings.Default.password;
@@ -71,6 +74,8 @@ namespace DownloadAllTheThings
         {
             if (FormWindowState.Minimized == this.WindowState)
             {
+
+                // If no username and password entered make the user enter it
                 if (Properties.Settings.Default.username.Equals("") ||
                    Properties.Settings.Default.password.Equals(""))
                 {
@@ -85,8 +90,8 @@ namespace DownloadAllTheThings
                     this.Hide();
 
                     // get the number once this is hidden
-                    getDataFromComcast();
-                    downloadIcon.ShowBalloonTip(5000);
+                    Thread thread = new Thread(this.getDataFromComcast);
+                    thread.Start();
                     time = DateTime.Now;
                 }
             }
@@ -116,6 +121,12 @@ namespace DownloadAllTheThings
             string usage = sr.ReadLine();
             downloadIcon.BalloonTipText = usage;
             proc.Close();
+
+            if (firstCheck)
+            {
+                downloadIcon.ShowBalloonTip(5000);
+                firstCheck = false;
+            }
         }
 
         // When the tooltip is clicked show the usage
@@ -127,7 +138,8 @@ namespace DownloadAllTheThings
             if (elasped.Hours >= 1)
             {
                 // get the updated data
-                getDataFromComcast();
+                Thread thread = new Thread(this.getDataFromComcast);
+                thread.Start();
             }
             
             downloadIcon.ShowBalloonTip(5000);
