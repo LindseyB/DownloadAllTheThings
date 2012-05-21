@@ -14,6 +14,8 @@ namespace DownloadAllTheThings
 {
     public partial class Form1 : Form
     {
+        public DateTime time;
+
         public Form1()
         {
             InitializeComponent();
@@ -74,6 +76,7 @@ namespace DownloadAllTheThings
                 // get the number once this is hidden
                 getDataFromComcast();
                 downloadIcon.ShowBalloonTip(5000);
+                time = DateTime.Now;
             }
         }
 
@@ -106,6 +109,15 @@ namespace DownloadAllTheThings
         // When the tooltip is clicked show the usage
         private void downloadIcon_Click(object sender, MouseEventArgs e)
         {
+            // Get the elasped time in hours to make sure we don't hit comcast too often
+            TimeSpan elasped = DateTime.Now - time;
+            time = DateTime.Now;
+            if (elasped.Hours >= 1)
+            {
+                // get the updated data
+                getDataFromComcast();
+            }
+            
             downloadIcon.ShowBalloonTip(5000);
         }
     }
