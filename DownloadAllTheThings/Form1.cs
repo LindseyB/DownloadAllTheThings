@@ -48,6 +48,7 @@ namespace DownloadAllTheThings
         {
             this.Show();
             WindowState = FormWindowState.Normal;
+            downloadIcon.Visible = false;
         }
 
         // exit the program
@@ -76,6 +77,7 @@ namespace DownloadAllTheThings
                     MessageBox.Show("Please enter and save your username and password.");
                     this.Show();
                     WindowState = FormWindowState.Normal;
+                    downloadIcon.Visible = false;
                 }
                 else
                 {

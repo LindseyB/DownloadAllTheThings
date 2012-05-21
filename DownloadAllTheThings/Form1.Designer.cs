@@ -84,7 +84,6 @@
             // 
             this.downloadIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("downloadIcon.Icon")));
             this.downloadIcon.Text = "Download All The Things";
-            this.downloadIcon.Visible = true;
             this.downloadIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.downloadIcon_Click);
             // 
             // Form1
