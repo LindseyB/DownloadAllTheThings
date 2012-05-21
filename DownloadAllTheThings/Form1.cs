@@ -70,13 +70,23 @@ namespace DownloadAllTheThings
         {
             if (FormWindowState.Minimized == this.WindowState)
             {
-                downloadIcon.Visible = true;
-                this.Hide();
-                
-                // get the number once this is hidden
-                getDataFromComcast();
-                downloadIcon.ShowBalloonTip(5000);
-                time = DateTime.Now;
+                if (Properties.Settings.Default.username.Equals("") ||
+                   Properties.Settings.Default.password.Equals(""))
+                {
+                    MessageBox.Show("Please enter and save your username and password.");
+                    this.Show();
+                    WindowState = FormWindowState.Normal;
+                }
+                else
+                {
+                    downloadIcon.Visible = true;
+                    this.Hide();
+
+                    // get the number once this is hidden
+                    getDataFromComcast();
+                    downloadIcon.ShowBalloonTip(5000);
+                    time = DateTime.Now;
+                }
             }
         }
 
