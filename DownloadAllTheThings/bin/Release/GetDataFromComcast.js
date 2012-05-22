@@ -39,26 +39,44 @@ function initialize() {
 
 // Step 2
 function waitForLoad() {
-	page.evaluate(function() {
+	var success = page.evaluate(function() {
 		// silently grab the loading text
 		if(document.getElementById('loadingMessage')){
 			document.getElementById('loadingMessage').innerHTML;
-		} // otherwise, attempt to go to the next step
+			return true;
+		} 
+
+		return false;
 	});
 
-	phantom.state = waitForLoad2;
+	if(success) {
+		phantom.state = waitForLoad2;
+	} else {
+		// bail
+		console.log('Unknown');
+		phantom.exit();
+	}
 }
 
 //step 3
 function waitForLoad2() {
-	page.evaluate(function() {
+	var success = page.evaluate(function() {
 		// silently grab the loading text
 		if(document.getElementById('loadingMessage')){
 			document.getElementById('loadingMessage').innerHTML;
-		} // otherwise, attempt to go to the next step
+			return true;
+		} 
+
+		return false;
 	});
 
-	phantom.state = scrapeData;	
+	if(success) {
+		phantom.state = scrapeData;
+	} else {
+		// bail
+		console.log('Unknown');
+		phantom.exit();
+	}
 }
 
 // Step 4
