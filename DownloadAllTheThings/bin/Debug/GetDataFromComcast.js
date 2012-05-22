@@ -18,22 +18,33 @@ page.open(url, function (status) {
 			phantom.state();
 		}
 	} else {
-		// page load error - the value is unknown and exit
-		console.log('Unknown');
+		// error: page load
+		console.log('1');
 		phantom.exit();
 	}
 });
 
 // Step 1
 function initialize() {
-	evaluate(page, function(username,password) {
+	var success = evaluate(page, function(username,password) {
 		// enter username and password and submit the form
-		document.getElementById('user').value = username;
-		document.getElementById('passwd').value = password;
-		document.forms['signin'].submit();
+		if(document.getElementById('user')) {
+			document.getElementById('user').value = username;
+			document.getElementById('passwd').value = password;
+			document.forms['signin'].submit();
+			return true;
+		} 
+		
+		return false;
 	}, username, password);
 
-	phantom.state = waitForLoad;
+	if(success) {
+		phantom.state = waitForLoad;
+	} else {
+		// error: unable to enter username and password
+		console.log('2')
+		phantom.exit();
+	}
 }
 
 
@@ -52,8 +63,8 @@ function waitForLoad() {
 	if(success) {
 		phantom.state = waitForLoad2;
 	} else {
-		// bail
-		console.log('Unknown');
+		// error: the login credentials were incorrect
+		console.log('3');
 		phantom.exit();
 	}
 }
@@ -73,8 +84,8 @@ function waitForLoad2() {
 	if(success) {
 		phantom.state = scrapeData;
 	} else {
-		// bail
-		console.log('Unknown');
+		// error: unknown
+		console.log('4');
 		phantom.exit();
 	}
 }
@@ -86,8 +97,8 @@ function scrapeData() {
 		if(document.getElementById('ctl00_ctl00_ContentArea_PrimaryColumnContent_UsedWrapper')) {
 			console.log(document.getElementById('ctl00_ctl00_ContentArea_PrimaryColumnContent_UsedWrapper').innerHTML);
 		} else {
-			// Let's not error out but instead just say we don't know the amount
-			console.log('Unknown');
+			// error: unable to retrieve value
+			console.log('5');
 		}
 	});
 
